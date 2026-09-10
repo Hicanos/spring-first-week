@@ -1,9 +1,6 @@
 package com.gamebasic.game.service;
 
-import com.gamebasic.game.dto.CreateRequest;
-import com.gamebasic.game.dto.GameDetailResponse;
-import com.gamebasic.game.dto.GameSummaryResponse;
-import com.gamebasic.game.dto.ProgressRequest;
+import com.gamebasic.game.dto.*;
 import com.gamebasic.game.entity.Game;
 import com.gamebasic.game.repository.GameRepository;
 import com.gamebasic.runcard.dto.CardResponse;
@@ -18,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -140,5 +136,19 @@ public class GameService {
      }
 
     // TODO (Lv 8): 플레이어 이름 변경 — 변경 감지로 수정
+    @Transactional
+    public void renameGame(Long gameId, RenameRequest request)
+    {
+        Game game = findGame(gameId);
+        game.rename(request.getPlayerName());
+    }
+
     // TODO (Lv 8): 게임 삭제
+    @Transactional
+    public void deleteGame(Long gameId)
+    {
+        Game game = findGame(gameId); // gameId로 해당하는 게임 찾기
+        runCardRepository.deleteAllByGame(game); // 해당 게임에 속한 카드 모두 삭제
+        gameRepository.delete(game); // 게임 삭제
+    }
 }
