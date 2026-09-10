@@ -34,7 +34,11 @@ public class GameService {
         List<RunCard> cards = runCardRepository.findAllByGameOrderByIdAsc(game);
         List<CardResponse> deck = new ArrayList<>();
         for (RunCard card : cards) {
-            deck.add(new CardResponse(card.getId(), card.getCardType(), card.getAcquiredFloor()));
+            deck.add(new CardResponse(
+                    card.getId(),
+                    card.getCardType(),
+                    card.getAcquiredFloor()
+            ));
         }
         return new GameDetailResponse(
             game.getId(),
@@ -50,7 +54,11 @@ public class GameService {
     private void saveDeck(Game game, List<RunCardRequest> deck) {
         List<RunCard> cards = new ArrayList<>();
         for (RunCardRequest card : deck) {
-            cards.add(new RunCard(game, card.getCardType(), card.getAcquiredFloor()));
+            cards.add(new RunCard(
+                    game,
+                    card.getCardType(),
+                    card.getAcquiredFloor()
+            ));
         }
         runCardRepository.saveAll(cards);
     }
@@ -115,7 +123,10 @@ public class GameService {
          List<RunCard> cards = runCardRepository.findAllByGameOrderByIdAsc(game);
          List<CardResponse> deck = new ArrayList<>();
          for (RunCard card : cards) {
-             deck.add(new CardResponse(card.getId(), card.getCardType(), card.getAcquiredFloor()));
+             deck.add(new CardResponse(
+                     card.getId(),
+                     card.getCardType(),
+                     card.getAcquiredFloor()));
          }
          return new GameDetailResponse(
                  game.getId(),
