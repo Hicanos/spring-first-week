@@ -44,7 +44,7 @@ public class GameController {
      }
 
      //제시된 PatchMapping
-     @PatchMapping("games/{gameId}")
+     @PatchMapping("/games/{gameId}")
      public ResponseEntity<Void> renameGame(
          @PathVariable Long gameId,
          @Valid @RequestBody RenameRequest request
